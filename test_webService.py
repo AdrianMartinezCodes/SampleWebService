@@ -5,7 +5,7 @@ def test_input():
     """
     Testing inputs to system
     """
-    inputurl = "http://localhost:8080/input"
+    inputurl = "http://localhost:8080/inputTransaction"
     for line in open("TextFiles/list.txt","r"):
         json_data = json.loads(line)
         response = requests.post(url= inputurl,json = json_data)
