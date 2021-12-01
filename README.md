@@ -48,8 +48,8 @@ By using curl, the following JSON string:
 ```javascript
 { 
   "payer": "DANNON", 
-  "points": 1000, "timestamp": 
-  "2020-11-02T14:00:00Z" 
+  "points": 1000, 
+  "timestamp": "2020-11-02T14:00:00Z" 
 }
 ```
 can be passed in:
@@ -106,7 +106,8 @@ returns
 ```javascript
 [
   {
-    "DANNON":-100
+    "payer": "DANNON",
+    "points":-100
   }
 ]
 ```
