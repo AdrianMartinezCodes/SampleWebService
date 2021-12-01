@@ -91,7 +91,7 @@ Returns: JSON string of form
 ```
 
 #### Example
-See usage in **/inputTrasnaction**
+See usage in **/inputTransaction**
 
 ### /shutdown
 Stops the server
