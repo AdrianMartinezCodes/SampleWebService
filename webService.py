@@ -3,11 +3,12 @@ import myUser
 
 user = myUser.myUser()
 
-class MyWebService(object):        
+class MyWebService(object):
+    
     @cherrypy.expose
     @cherrypy.tools.json_out()
     @cherrypy.tools.json_in()
-    def input(self):
+    def inputTransaction(self):
       data = cherrypy.request.json
       user.transaction(data)
       return
