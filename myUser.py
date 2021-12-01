@@ -68,9 +68,13 @@ class myUser:
                 payer = self.timestamps[toRemove]
                 payerDict = self.payers[payer][0]
                 pointsToRemove = min(payerDict[toRemove],pts)
-                #pop from timestamp dicts
-                self.timestamps.pop(toRemove)
-                self.payers[payer][0].pop(toRemove)
+                #pop from dicts if pts > points at timestamp
+                if pts > self.payers[payer][0][toRemove]:
+                    self.timestamps.pop(toRemove)
+                    self.payers[payer][0].pop(toRemove)
+                #else update payerDict[timestamp]
+                else:
+                    self.payers[payer][0][toRemove] -= pts
                 #update runningTotal
                 self.runningTotal -= pointsToRemove
                 #update total in payer points
