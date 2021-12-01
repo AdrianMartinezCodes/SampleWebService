@@ -16,42 +16,52 @@ You can also install CherryPy by following [this](https://docs.cherrypy.dev/en/l
 ### Setup
 To run this project, clone to a desired directory:
 ```
-$ ../git clone https://github.com/AdrianMartinezCodes/SampleWebService.git
+$ git clone https://github.com/AdrianMartinezCodes/SampleWebService.git
 $ cd SampleWebService
 $ python3 webService.py
 ```
-Default port is 8080.
+Default port is 8080. Can be configured in `server.conf`
 ## Usage
 This webService accepts requests to the following endpoints:
 ```bash
-localhost:xxxx/inputTransaction
+localhost:8080/inputTransaction
 
-localhost:xxxx/spendPoints
+localhost:8080/spendPoints
 
-localhost:xxxx/checkBalance
+localhost:8080/checkBalance
 
-shutdown:xxxx/shutdown
+shutdown:8080/shutdown
 ```
 ### /inputTransacation
 Input: expects a JSON string in the form 
 ```javascript
-{"payer":name,"points":num,"timestamp":time}
+{
+  "payer":name,
+  "points":num,
+  "timestamp":time
+}
 ```
 The input will be processed and updates the running total of the user
 
 #### Example
 By using curl, the following JSON string: 
 ```javascript
-{ "payer": "DANNON", "points": 1000, "timestamp": "2020-11-02T14:00:00Z" }
+{ 
+  "payer": "DANNON", 
+  "points": 1000, "timestamp": 
+  "2020-11-02T14:00:00Z" 
+}
 ```
 can be passed in:
 ```bash
-$ curl http://localhost:xxxx/inputTransaction -H "Content-Type: application/json" -d \
+$ curl http://localhost:8080/inputTransaction -H "Content-Type: application/json" -d \
 '{ "payer": "DANNON", "points": 1000, "timestamp": "2020-11-02T14:00:00Z" }'
 ```
 Calling **/checkBalance** outputs:
 ```javascript
-{"DANNON":1000}
+{
+  "DANNON":1000
+}
 ```
 
 
@@ -61,33 +71,54 @@ Assumptions: A populated user
 Cannot spend points > myUser.runningTotal
 Input: expects a JSON string in the form
 ```javascript
-{"points":num}
+{
+  "points":num
+}
 ```
 The input is processed and the points are subtracted from the users account by oldest transaction first
 Return: JSON string of form: 
 ```javascript
-[{payer:payer1, points: -num1},{payer:payer1, points: -num2,...}
+[
+  {
+    payer:payer1, 
+    points: -num1
+   },
+   {
+    payer:payer1, 
+    points: -num2,...
+   }
 ```
 
 #### Example
 Assume the user has populated with 
 ```javascript
-{ "payer": "DANNON", "points": 1000, "timestamp": "2020-11-02T14:00:00Z" }
+{ 
+  "payer": "DANNON", 
+  "points": 1000, 
+  "timestamp": "2020-11-02T14:00:00Z" 
+}
 ```
 Then calling
 ```bash
-$ curl http://localhost:xxxx/spendPoints -H "Content-Type: application/json" -d '{"points":100}'
+$ curl http://localhost:8080/spendPoints -H "Content-Type: application/json" -d '{"points":100}'
 ```
 returns
 ```javascript
-[{"DANNON":-100}]
+[
+  {
+    "DANNON":-100
+  }
+]
 ```
 
 ### /checkBalance
 Outputs the totals of the providers
 Returns: JSON string of form 
 ```javascript
-{"payer1": runningTotal1, "payer2": runningTotal2,...}
+{
+  "payer1": runningTotal1, 
+  "payer2": runningTotal2,...
+}
 ```
 
 #### Example
