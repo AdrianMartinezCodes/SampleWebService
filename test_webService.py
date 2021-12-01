@@ -25,7 +25,8 @@ def test_spend_points():
     response = requests.post(url = spendurl, json = data)
     print(response.status_code, response.reason)
     data = response.json()
-    assert data == open("TextFiles/outputText.txt","r").read()
+    testData = open("TextFiles/outputText.txt","r").read()
+    assert data == testData
 
 def test_balance():
     """

@@ -18,3 +18,11 @@ def test_checkBalance():
     data = testUser.checkBalance()
     load = open("TextFiles/balance.txt","r").read()
     assert data == load
+
+def test_sameSamePoints():
+    testUser.transaction(json.loads(
+        '{ "payer": "Carmax", "points": 1000, "timestamp": "2020-10-02T14:00:00Z" }'))
+    for i in range(3):
+        results = testUser.spendPoints(json.loads('{"points":100}'))
+    data = json.loads(testUser.checkBalance())
+    assert data["Carmax"] == 700
